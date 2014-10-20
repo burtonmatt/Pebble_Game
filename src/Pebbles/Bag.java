@@ -37,7 +37,4 @@ class Bag {
         return this.colour;
     }
 
-    
-
 }
-

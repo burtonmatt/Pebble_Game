@@ -7,12 +7,15 @@ class Pebble {
 
     private Integer weight;
 
-    protected Integer getWeight() {
+    Pebble (Integer weight) {
+        this.weight = weight;
+    }
+
+    Integer getWeight() {
         return this.weight;
     }
 
-    protected void setWeight(Integer weight ) {
+    void setWeight(Integer weight ) {
         this.weight = weight;
     }
 }
-
