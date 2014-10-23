@@ -1,6 +1,7 @@
-package Pebbles;
+package pebbles;
 import java.util.LinkedList;
 import java.util.Random;
+import java.io.*;
 
 /**
  * Created by Andrei on 10/20/2014.
@@ -57,6 +58,55 @@ class PebbleGame {
             int bagIndex = random1.nextInt(bag.sizeOfBag()-1);
             this.pebbles.add(bag.removePebble(bagIndex));
 
+        }
+    }
+
+    static void main(String[] args) {
+
+        Bag bagA = new Bag("A","white");
+        Bag bagB = new Bag("B","white");
+        Bag bagC = new Bag("C","white");
+
+        Bag bagX = new Bag("X","black");
+        Bag bagY = new Bag("Y","black");
+        Bag bagZ = new Bag("Z","black");
+
+        fillBag(bagX,args[0]);
+        fillBag(bagX,args[1]);
+        fillBag(bagX,args[2]);
+
+
+
+
+
+    }
+
+    static void fillBag(Bag bag, String fileName) {
+
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader in = new BufferedReader(fileReader);
+            String values1 = in.readLine();
+            String[] xWeights = values1.split(",");
+            for (int i=0; i<xWeights.length; i++) {
+                int weight;
+                weight = Integer.parseInt(xWeights[i]);
+                if (weight <= 0) {
+                    System.out.println("Weight value is smaller than 0.");
+                    break;
+                }
+                Pebble bagFiller = new Pebble(weight);
+                bag.addPebble(bagFiller);
+            }
+
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("File not found.");
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            System.out.println("IO Exception thrown.");
+            e.printStackTrace();
         }
     }
 }

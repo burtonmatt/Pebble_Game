@@ -1,4 +1,4 @@
-package Pebbles;
+package pebbles;
 import java.util.LinkedList;
 
 
