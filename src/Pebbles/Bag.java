@@ -22,19 +22,33 @@ class Bag {
     }
 
     void addPebble(Pebble pebble) {
+
         this.pebbles.add(pebble);
     }
 
     int sizeOfBag() {
+
         return this.pebbles.size();
     }
 
     String getName() {
+
         return this.name;
     }
 
     String getColour() {
+
         return this.colour;
+    }
+
+    /**
+     * Method called on an instance of Bag to transfer containing pebbles into this bag.
+     *
+     * @param bag
+     */
+    void transferPebbles(Bag bag) {
+        this.pebbles = bag.pebbles;
+        bag.pebbles.clear();
     }
 
 }

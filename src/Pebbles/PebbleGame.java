@@ -40,13 +40,23 @@ class PebbleGame {
             return this.totalPebbles;
         }
 
-        Pebble discardPebble(int index) {
+        Pebble discardPebble() {
+
             this.totalPebbles--;
+            Random random1 = new Random();
+            int handIndex = random1.nextInt(9);
+            Pebble discardedPebble = (Pebble)this.pebbles.remove(handIndex);
+            return discardedPebble;
+
         }
 
         void takePebble(Bag bag) {
+
             this.totalPebbles++;
-            
+            Random random1 = new Random();
+            int bagIndex = random1.nextInt(bag.sizeOfBag()-1);
+            this.pebbles.add(bag.removePebble(bagIndex));
+
         }
     }
 }
