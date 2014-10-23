@@ -9,7 +9,7 @@ class Pebble {
     private Integer weight;
     private Bag parentBag;
 
-    Pebble (Integer weight) {
+    public Pebble (Integer weight) {
 
         this.weight = weight;
     }

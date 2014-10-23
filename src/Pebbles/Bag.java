@@ -4,21 +4,22 @@ import java.util.LinkedList;
 
 /**
  * Created by Andrei on 10/20/2014.
+ * Version v1.12
  */
 class Bag {
 
-    private String name;
-    private LinkedList pebbles;
-    private String colour;
+    private final String name;
+    private LinkedList<Pebble> pebbles;
+    private final String colour;
 
-    Bag (String name, String colour) {
+    public Bag (String name, String colour) {
         this.pebbles = new LinkedList<Pebble>();
         this.colour = colour;
         this.name = name;
     }
 
     Pebble removePebble(int index) {
-        return (Pebble)this.pebbles.remove(index);
+        return this.pebbles.remove(index);
     }
 
     void addPebble(Pebble pebble) {

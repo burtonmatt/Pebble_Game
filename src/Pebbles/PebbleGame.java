@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.io.*;
 
+
 /**
  * Created by Andrei on 10/20/2014.
  */
@@ -10,7 +11,7 @@ class PebbleGame {
 
     class Player {
 
-        private int name;
+        private final int name;
         private LinkedList pebbles;
         private int totalValue;
         private int totalPebbles;
@@ -24,10 +25,9 @@ class PebbleGame {
 
         int getTotalValue() {
             int total = 0;
-            int x = this.pebbles.size();
 
-            for (int j=0; j<x; j++) {
-                Pebble current = (Pebble) this.pebbles.get(j);
+            for (Object pebble : this.pebbles) {
+                Pebble current = (Pebble) pebble;
                 total += current.getWeight();
             }
             return total;
@@ -46,8 +46,7 @@ class PebbleGame {
             this.totalPebbles--;
             Random random1 = new Random();
             int handIndex = random1.nextInt(9);
-            Pebble discardedPebble = (Pebble)this.pebbles.remove(handIndex);
-            return discardedPebble;
+            return (Pebble)this.pebbles.remove(handIndex);
 
         }
 
@@ -61,7 +60,7 @@ class PebbleGame {
         }
     }
 
-    static void main(String[] args) {
+    public static void main(String args[]) {
 
         Bag bagA = new Bag("A","white");
         Bag bagB = new Bag("B","white");
@@ -72,8 +71,8 @@ class PebbleGame {
         Bag bagZ = new Bag("Z","black");
 
         fillBag(bagX,args[0]);
-        fillBag(bagX,args[1]);
-        fillBag(bagX,args[2]);
+        fillBag(bagY,args[1]);
+        fillBag(bagZ,args[2]);
 
 
 
@@ -81,16 +80,16 @@ class PebbleGame {
 
     }
 
-    static void fillBag(Bag bag, String fileName) {
+    private static void fillBag(Bag bag, String fileName) {
 
         try {
             FileReader fileReader = new FileReader(fileName);
             BufferedReader in = new BufferedReader(fileReader);
             String values1 = in.readLine();
             String[] xWeights = values1.split(",");
-            for (int i=0; i<xWeights.length; i++) {
+            for (String xWeight : xWeights) {
                 int weight;
-                weight = Integer.parseInt(xWeights[i]);
+                weight = Integer.parseInt(xWeight);
                 if (weight <= 0) {
                     System.out.println("Weight value is smaller than 0.");
                     break;
