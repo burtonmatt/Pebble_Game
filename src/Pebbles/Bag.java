@@ -45,7 +45,7 @@ class Bag {
     /**
      * Method called on an instance of Bag to transfer containing pebbles into this bag.
      *
-     * @param bag
+     * @param bag  the bag that is going to be emptied
      */
     void transferPebbles(Bag bag) {
         this.pebbles = bag.pebbles;
