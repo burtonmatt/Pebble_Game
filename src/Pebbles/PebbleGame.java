@@ -100,7 +100,7 @@ class PebbleGame {
 
         }
         catch (FileNotFoundException e) {
-            System.out.println("File not found.");
+            System.out.println("File not found for Bag: "+bag.getName());
             e.printStackTrace();
         }
         catch (IOException e) {
