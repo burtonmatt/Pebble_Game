@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Andrei on 10/20/2014.
+ *
+ *
  */
 class PebbleGame {
 
@@ -16,8 +18,10 @@ class PebbleGame {
         private LinkedList<Pebble> pebbles;
         private int totalValue;
         private int totalPebbles;
+        private volatile boolean done = false;
+        Random next = new Random();
 
-        Player (int name) {
+        public Player (int name) {
             this.name = name;
             this.pebbles = new LinkedList<Pebble>();
             this.totalValue = 0;
@@ -49,11 +53,11 @@ class PebbleGame {
             this.totalPebbles--;
             Random random1 = new Random();
             int handIndex = random1.nextInt(9);
-            return (Pebble)this.pebbles.remove(handIndex);
+            return this.pebbles.remove(handIndex);
 
         }
 
-        void takePebble(Bag bag) {
+        void takeInitialPebble(Bag bag) {
 
             this.totalPebbles++;
             Random random1 = new Random();
@@ -62,23 +66,153 @@ class PebbleGame {
 
         }
 
+        void takePebble() {
+            String message;
+            int randomBag = next.nextInt(2);
+
+            if (randomBag == 0){
+                if (bagX.sizeOfBag() !=0) {
+                    takeInitialPebble(bagX);
+                    message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagX.getName();
+                    WriteToFile.write(name,message);
+                    System.out.println(message);
+                }
+                else {
+                    if (bagY.sizeOfBag() !=0){
+                        takeInitialPebble(bagY);
+                        message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagY.getName();
+                        WriteToFile.write(name,message);
+                        System.out.println(message);
+                    }
+                    else {
+                        if (bagZ.sizeOfBag() != 0){
+                            takeInitialPebble(bagZ);
+                            message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagZ.getName();
+                            WriteToFile.write(name,message);
+                            System.out.println(message);
+                        }
+                        else {
+                            System.out.println("All bags are empty!");
+
+                        }
+                    }
+                }
+            }
+            if (randomBag == 1){
+                if (bagY.sizeOfBag() !=0) {
+                    takeInitialPebble(bagY);
+                    message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagY.getName();
+                    WriteToFile.write(name,message);
+                    System.out.println(message);
+                }
+                else {
+                    if (bagZ.sizeOfBag() !=0){
+                        takeInitialPebble(bagZ);
+                        message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagZ.getName();
+                        WriteToFile.write(name,message);
+                        System.out.println(message);
+                    }
+                    else {
+                        if (bagX.sizeOfBag() != 0){
+                            takeInitialPebble(bagX);
+                            message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagX.getName();
+                            WriteToFile.write(name,message);
+                            System.out.println(message);
+                        }
+                        else {
+                            System.out.println("All bags are empty!");
+
+                        }
+                    }
+                }
+            }
+            if (randomBag == 2){
+                if (bagZ.sizeOfBag() !=0) {
+                    takeInitialPebble(bagZ);
+                    message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagZ.getName();
+                    WriteToFile.write(name,message);
+                    System.out.println(message);
+                }
+                else {
+                    if (bagX.sizeOfBag() !=0){
+                        takeInitialPebble(bagX);
+                        message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagX.getName();
+                        WriteToFile.write(name,message);
+                        System.out.println(message);
+                    }
+                    else {
+                        if (bagY.sizeOfBag() != 0){
+                            takeInitialPebble(bagY);
+                            message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+bagY.getName();
+                            WriteToFile.write(name,message);
+                            System.out.println(message);
+                        }
+                        else {
+                            System.out.println("All bags are empty!");
+
+                        }
+                    }
+                }
+            }
+
+        }
+
         public void run() {
+            WriteToFile.create(name);
+            Bag full;
+            String message;
+            for (int i =0;i< 9;i++) {
+                full = PebbleGame.fullestBag(bagX,bagY,bagZ);
+                takeInitialPebble(full);
+                message = "player"+name+" has drown a "+this.pebbles.getLast().getWeight()+" from bag"+full.getName();
+                WriteToFile.write(name,message);
+                System.out.println(message);
+            }
+
+
+            while (!done) {
+                if (bagX.sizeOfBag() == 0 && bagA.sizeOfBag() != 0){
+                    bagX.transferPebbles(bagA);
+                }
+                if (bagY.sizeOfBag() == 0 && bagB.sizeOfBag() != 0){
+                    bagY.transferPebbles(bagB);
+                }
+                if (bagZ.sizeOfBag() == 0 && bagC.sizeOfBag() != 0){
+                    bagZ.transferPebbles(bagC);
+                }
+
+                takePebble();
+
+
+                if (totalValue == 100) {
+                    done = true;
+                    message = "player"+name+" has won";
+                    WriteToFile.write(name,message);
+                    System.out.println(message);
+                    this.notifyAll();
+                }
+            }
+
+
+
 
         }
     }
 
     private static Bag fullest;
-    private static LinkedList<Player> playersList;
+
+
+    static Bag bagA = new Bag("A","white");
+    static Bag bagB = new Bag("B","white");
+    static Bag bagC = new Bag("C","white");
+
+    static Bag bagX = new Bag("X","black");
+    static Bag bagY = new Bag("Y","black");
+    static Bag bagZ = new Bag("Z","black");
+
+
 
     public static void main(String args[]) throws NotEnoughPebblesException, InvalidPlayersNumberException {
-
-        Bag bagA = new Bag("A","white");
-        Bag bagB = new Bag("B","white");
-        Bag bagC = new Bag("C","white");
-
-        Bag bagX = new Bag("X","black");
-        Bag bagY = new Bag("Y","black");
-        Bag bagZ = new Bag("Z","black");
 
         fillBag(bagX,args[0]);
         fillBag(bagY,args[1]);
@@ -87,6 +221,17 @@ class PebbleGame {
         checkPlayersNumber(playersNr.get());
         checkEnoughPebbles(bagX, bagY,bagZ, playersNr.get());
 
+        int i;
+
+        for (i = 1; i <= playersNr.get(); i++) {
+            new Thread(new Player(i)).start();
+
+        }
+
+
+
+
+        WriteToFile.closing(playersNr.get());
     }
 
     private static void fillBag(Bag bag, String fileName) {
@@ -132,7 +277,7 @@ class PebbleGame {
 
     }
 
-    private Bag fullestBag(Bag bagx, Bag bagy, Bag bagz) {
+    private static Bag fullestBag(Bag bagx, Bag bagy, Bag bagz) {
 
         int max = 0;
         if (max < bagx.sizeOfBag()) {
