@@ -22,7 +22,7 @@ class WriteToFile {
     static synchronized void create(int i) {
         try {
             String fileName = "player" + i + "_output.txt";
-            File fstream = new File(fileName);
+            new File(fileName);
 
         } catch (Exception e){
             System.err.println("Error: " + e.getMessage());
