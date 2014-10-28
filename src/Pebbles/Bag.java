@@ -37,10 +37,6 @@ class Bag {
         return this.name;
     }
 
-    String getColour() {
-
-        return this.colour;
-    }
 
     /**
      * Method called on an instance of Bag to transfer containing pebbles into this bag.

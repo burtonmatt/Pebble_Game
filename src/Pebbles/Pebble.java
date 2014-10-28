@@ -19,10 +19,6 @@ class Pebble {
         return this.weight;
     }
 
-    void setWeight(Integer weight ) {
-
-        this.weight = weight;
-    }
 
     Bag getParentBag() {
         return this.parentBag;
