@@ -10,11 +10,9 @@ class Bag {
 
     private final String name;
     private LinkedList<Pebble> pebbles;
-    private final String colour;
 
-    public Bag (String name, String colour) {
+    public Bag (String name) {
         this.pebbles = new LinkedList<Pebble>();
-        this.colour = colour;
         this.name = name;
     }
 

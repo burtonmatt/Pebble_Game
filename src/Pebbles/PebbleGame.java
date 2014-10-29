@@ -16,7 +16,7 @@ class PebbleGame {
 
         private final int name;
         private LinkedList<Pebble> pebbles;
-        Random next = new Random();
+        final Random next = new Random();
 
         public Player (int name) {
             this.name = name;
@@ -221,16 +221,16 @@ class PebbleGame {
 
     private static Bag fullest;
 
-    static Bag bagA = new Bag("A","white");
-    static Bag bagB = new Bag("B","white");
-    static Bag bagC = new Bag("C","white");
+    private static final Bag bagA = new Bag("A");
+    private static final Bag bagB = new Bag("B");
+    private static final Bag bagC = new Bag("C");
 
-    static Bag bagX = new Bag("X","black");
-    static Bag bagY = new Bag("Y","black");
-    static Bag bagZ = new Bag("Z","black");
+    private static final Bag bagX = new Bag("X");
+    private static final Bag bagY = new Bag("Y");
+    private static final Bag bagZ = new Bag("Z");
 
-    static boolean done = false;
-    static AtomicInteger playersNr;
+    private static boolean done = false;
+    private static AtomicInteger playersNr;
 
     public static void main(String args[]) throws NotEnoughPebblesException, InvalidPlayersNumberException {
 

@@ -6,7 +6,7 @@ package pebbles;
  */
 class Pebble {
 
-    private Integer weight;
+    private final Integer weight;
     private Bag parentBag;
 
     public Pebble (Integer weight) {
