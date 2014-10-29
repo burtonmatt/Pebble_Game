@@ -2,12 +2,17 @@ package pebbles;
 import java.io.*;
 
 /**
- * Created by Andrei on 10/26/2014.
- * Version v1.12
+ * The WriteToFile Class is used to write the appropriate message to the
+ * wright player's file.
+ *
  */
 class WriteToFile {
 
-
+    /**
+     * Write a line in the given player's file
+     * @param i represents the player's number
+     * @param message the message that we wish to write into the file
+     */
     static synchronized void write(int i,String message){
         try {
             String fileName = "player" + i + "_output.txt";
@@ -19,6 +24,11 @@ class WriteToFile {
         }
 
     }
+
+    /**
+     * This method creates the file for the given player number
+     * @param i represents the player's number
+     */
     static synchronized void create(int i) {
         try {
             String fileName = "player" + i + "_output.txt";
@@ -29,6 +39,10 @@ class WriteToFile {
         }
     }
 
+    /**
+     * The method will close all the files created
+     * @param i the total number of players
+     */
     static synchronized void closing(int i){
         for (int j=1;j<=i;j++){
             try {
