@@ -15,8 +15,10 @@ class WriteToFile {
      */
     static synchronized void write(int i,String message){
         try {
+            //selecting the correct file to write into
             String fileName = "player" + i + "_output.txt";
             FileWriter fstream = new FileWriter(fileName);
+            //creating a writing buffer for the specified file
             BufferedWriter out = new BufferedWriter(fstream);
             out.write(message);
         } catch(Exception e) {
