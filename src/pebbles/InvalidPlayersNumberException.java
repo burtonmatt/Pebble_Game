@@ -1,8 +1,8 @@
 package pebbles;
 
 /**
- * Created by Andrei on 10/24/2014.
- * Version v1.12
+ *The InvalidPlayersNumberException Class will throw an exception
+ * if the number of players entered into the program is less than 2
  */
 class InvalidPlayersNumberException extends Throwable  {
 

@@ -1,8 +1,8 @@
 package pebbles;
 
 /**
- * Created by Andrei on 10/24/2014.
- * Version v1.12
+ * The NotEnoughPebblesException Class will throw an exception if
+ * there are not enough pebbles to start the game
  */
 class NotEnoughPebblesException extends Throwable {
 
